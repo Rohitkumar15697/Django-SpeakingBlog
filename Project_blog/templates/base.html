@@ -1,0 +1,39 @@
+{% load static %}
+<html lang="en">
+<head>
+
+    <title>{% block title %} {% endblock %}</title>
+
+    <link rel='stylesheet' href={%static 'css/base.css' %}>
+    <style>
+    {%block style%} {%endblock%}
+    </style>
+</head>
+<body>
+    <!--Header part of the home page with navigation-->
+    <header>
+        <div class='blogname'><a href={%url 'home' %}>SpeakingBlog</a></div>
+        <nav>
+            <li><a href=''>About</a></li>
+            <li><a href=''>Contact </a></li>
+            <li><a href={%url 'register' %}>Register </a></li>
+            <li><a href={%url 'login'%}>Login </a></li>
+            
+            {%if user.is_authenticated %}
+        
+            <li><a style='color:blue;'href={% url 'profile' %}>{{request.user}}</a></li>
+
+            {%endif%}
+
+
+        </nav>
+    </header>
+
+
+
+    {%block body%}
+
+    {% endblock %}
+    
+</body>
+</html>

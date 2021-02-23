@@ -1,0 +1,75 @@
+{%extends 'base.html'%}
+<html lang="en">
+<head>
+
+   {%block title%} blogpost {%endblock%}
+
+    {%block style%}
+
+     
+        section{
+                
+
+           padding-top:150px;
+               }
+        article{
+                    margin:auto;width:80%;
+                padding:30px 50px 20px 50px;
+                    background:rgb(236, 231, 231);        
+                }
+        .postdiv{background:rgb(214, 211, 211);margin-top:5px;padding:5px;text-align: justify;}
+
+    {%endblock%}
+    
+</head>
+<body>
+    
+    {%block body%}
+
+
+
+    <section>
+    
+
+    
+    <article>
+
+        <b style='font-family:monospace;font-size:19px;'>Title- {{data.title}}</b><br>
+        
+        <small><b>Category</b>- {{data.topic}}</small> <br>
+
+        <!--Printing date of created-->
+        <small style='color:gray;'>{{data.date}}</small> 
+
+        <div class='postdiv'>
+                <p style='font-family:serif;color:rgb(70, 62, 62);'> {{data.post}}</p>
+                
+        </div>
+        <small><b>Author</b>- {{data.created_by}}</small><br>
+        
+        
+
+        <!--This is for delete and edit post in blogpost_detail page only-->
+
+        <br>
+        {% if user.is_authenticated %}
+            {%if user.id == data.created_by.id %}
+
+                        <a href={%url 'editblog' data.pk %}>Edit</a>&nbsp;&nbsp;
+
+                        <a href={%url 'deleteblog' data.pk%}>Delete</a>
+
+            {%endif%}
+        {%endif%}
+
+        
+
+        
+    
+    </article>
+</section>
+
+{%endblock%}
+
+</body>
+</html>

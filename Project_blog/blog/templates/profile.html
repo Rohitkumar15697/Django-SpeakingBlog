@@ -1,0 +1,276 @@
+
+
+<head>
+
+    <title>Profile |  {{user.username}} </title>
+    <script>
+        function logout_alert(){
+            alert('Logout Done!')
+        }
+
+    </script>
+
+    <style>
+
+            *{
+                margin:0px;
+                padding:0px;
+            }
+
+            header{
+                width:100%;
+                height:80px;
+                background:rgba(25, 223, 75, 0.86);
+               position:fixed;
+                
+            }
+            header nav{
+                float:right;
+                display:flex;
+                
+                
+            }
+            header nav li{
+                display:block;
+                font-size:20px;
+                padding:30px 35px 0px 20px;
+                border-right:1px solid rgb(161, 153, 153);
+                
+            }
+            /*Title of the website main speaking blog*/
+            .blogname{position:absolute;font-size:50px;color:rgba(43, 56, 128, 0.904);margin-left:8px;margin-top:8px;}
+
+            
+            
+            a{text-decoration: none;}
+            
+            a:hover{color:rgb(22, 57, 216);}
+
+            
+            .container{
+                
+                
+               width:90%;
+               margin:auto;
+                
+
+            }
+            main{
+                
+                display:flex;
+                justify-content:space-around;
+                
+            }
+            section{
+                margin-top:150px;
+                margin-left:50px;
+                width:50%;
+                 
+                
+                }
+            
+            article{
+                
+                background:rgb(248, 241, 241);
+                text-align:justify;
+                padding:8px;
+                
+                width:80%;              
+                
+                }
+        .fulldata_article{width:100%;}
+
+        .search{margin-top:-90px;
+                padding-bottom:50px;
+                margin-left:120px;}
+
+
+            aside{width:30%;
+                 margin-top:200px;}
+            
+
+            .mypost{margin-left:20px;
+            
+                        }
+    
+           
+            .postme{
+                    background:#1bbb35;
+                    color:white;
+                    font-size: 16px;
+                    padding:3px 5px 3px 5px;
+                    margin-top:5px;
+                    cursor:pointer;
+                    
+                    
+                    border:0.1em solid #053861;
+        }
+        
+
+        .textarea{width:450px;
+                height:200px;}
+
+        footer{height:150px;
+                margin-top:00px;
+                color:white;
+                background:rgb(44, 39, 39);}
+
+
+
+@media(max-width:800px){
+
+            .blogname{position:absolute;font-size:40px;color:rgba(43, 56, 128, 0.904);margin-left:8px;margin-top:12px;}
+
+             header nav li{
+                display:block;
+                font-size:17px;              
+                border-right:None;
+                
+            }
+
+            .container{
+             
+               width:100%;
+
+            }
+             
+            main{flex-direction:column;}
+
+            section{
+                margin-top:100px;
+                margin-left:50px;
+                width:90%;
+                 
+                
+                }
+         .textarea{width:300px;
+                height:100px;}
+
+         .search{padding:20px;margin-left:0px;}
+
+            aside{width:70%;
+                    
+                 margin-top:50px;
+                 margin-left:20px;}
+
+        }
+        footer{height:100px;
+                margin-top:100px;
+                color:white;
+                background:rgb(44, 39, 39);}
+            
+            
+    </style>
+
+
+</head>
+
+<body>
+
+    <header class='header'>
+        <span class='blogname'><a href={%url 'home'%}>SpeakingBlog</a></span>
+        
+            <nav>
+                    
+                   <li><a href=''> {{user.username}}</a></li>
+
+                    
+                    <li><a onclick="logout_alert()" style='text-decoration:none;'} href={%url 'logout' %}>Logout</a></li> 
+                    
+            </nav>
+
+            
+
+    </header>
+    
+
+    <div class='container'>
+            <main>
+                
+                    <section class='mypost'>
+                      
+                        <h3>Create a Blog</h3><br>
+
+                    
+                        <!--This is the form for blog post-->
+
+                        <form method='post' class='myform'>
+
+                            {%csrf_token%}
+
+                                
+                                 {{form.as_p}}
+
+
+                                <input type='submit' class='postme' value='Post'>
+
+                            </form>
+                                        <br><br><br><br>
+
+
+                        <!--This is for  the profile webpage full data on middle of webpage -->
+                                {%if fulldata%}
+                                    {%for data in fulldata%}
+
+                                        <article class='fulldata_article'>
+                                        
+                                            <h4><a href={%url 'detaildata' data.id%}>{{data.title}}</a></h4>
+                                            <br>
+
+                                            
+                                            <p>{{data.post}}</p><br>
+                                            
+                                            
+                                            <h5>Author- {{data.created_by}}  (<small style='color:gray;'>{{data.date}}</small>)</h5><br><hr>
+            
+                                     </article><br><br>
+
+                                    {%endfor%}
+                                {% endif %}
+
+                    </section>
+                    
+                  <!--This is for aside right side all links of blog titles--> 
+
+                    <aside class='data_section'>
+                        
+
+                <!--searching text-box here-->
+
+                    <form method='get' class='search' action='../search'>
+
+                            <input type='text' name='search_me' placeholder='Search' style='height:24px;'>
+                            <input type='submit' value='Search' style='cursor:pointer;padding:1px;background:black;color:white;font-size:15px;'>
+                            
+                        </form>
+
+
+
+                        <h3>See all blogs</h3>
+
+                                    {%if data%}
+                                        {%for data in data%}
+                                <article>
+                                    
+                                        <p><a href={%url 'detaildata' data.id%}> {{data.title}}</a></p>
+                                    
+                                </article>
+                                    {%endfor%}
+                                {%endif%}
+
+                               
+                                <br><p><a href=''>All blogs( {{count}} )</a></p>
+                                
+                    </aside>
+                    
+            </main>
+
+            
+    </div>
+   
+    <footer>
+        &copy;This is copyright
+    </footer>
+    
+</body>
+</html>

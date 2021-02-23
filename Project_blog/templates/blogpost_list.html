@@ -1,0 +1,64 @@
+{%extends 'base.html'%}
+<html lang="en">
+<head>
+
+    {%block title%} All Data{%endblock%}
+
+
+    {%block style%}
+
+        *{margin:0px;padding:0px;}
+ 
+
+
+            main{width:80%;
+            margin:auto;padding-top:150px;}
+
+        section{width:80%;background:rgb(247, 241, 241);
+                    }
+        article{width:100%;}
+
+        article p{padding:5px 0px 1px 5px;}
+    
+        {%endblock%}
+
+
+</head>
+<body>
+    
+
+{%block body%}
+
+
+  <main>  
+
+    <section>
+        <h3>All blogs</h3>
+            {%if blogpost_list%}
+            
+                {%for data in blogpost_list%}
+
+                <article>
+                    
+
+                    <p><a href={%url 'detaildata' data.pk %}>-{{data.title}}</a> <small>( Author- <b>{{data.created_by}})</b></small></p>   
+                    
+                    
+
+                </article>
+
+                {%endfor%}
+
+              
+
+
+
+
+            {%endif%}
+    </section>
+</main>
+
+    {%endblock%}
+
+</body>
+</html>

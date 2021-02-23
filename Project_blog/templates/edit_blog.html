@@ -1,0 +1,47 @@
+{%extends 'base.html' %}
+<html lang="en">
+<head>
+
+   {%block title%}Edit Blog {%endblock%}
+   
+   {%block style%}
+        .outdiv{padding-top:100px;}
+        .myform{background:gray;display:inline-block;padding:50px;}
+        .textarea{width:400px;
+                    height:200px;}
+
+
+                    .postme{
+                        background:#1bbb35;
+                        color:white;
+                        font-size: 16px;
+                        padding:3px 5px 3px 5px;
+                        margin-top:5px;
+                        cursor:pointer;                       
+                        border:0.1em solid #053861;
+            }
+   {%endblock%}
+
+</head>
+<body>
+    {%block body%}
+    <div class='outdiv'>
+
+            <form method='post' class='myform'>
+
+                {%csrf_token%}
+
+                   {{form.as_p}}
+                    <input type='submit' class='postme' value='Post'>
+
+                </form>
+
+    </div>
+        
+    
+    {%endblock%}
+
+
+    
+</body>
+</html>
